@@ -4,7 +4,7 @@ description: Writing I-SUCCESS practice content. Use when adding or changing sub
 license: MIT
 metadata:
   version: "0.1.20261113"
-  related_skills: [is-code, is-ui]
+  related_skills: [is-arch, is-code, is-ui]
 ---
 
 # is-content - practice content

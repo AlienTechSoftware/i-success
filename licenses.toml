@@ -23,7 +23,7 @@ sha256 = "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
 path = "NOTICE"
 covers = ["."]
 source = "Written for this project: copyright, source provenance and third-party notices"
-sha256 = "b88ae8fff47ff8b738eccc22d7f928fb3c2d635249a7595abfaa4c332f5fa4e2"
+sha256 = "3142ee995e580bc42c43bb9b36e640fb2d7841a13df989412a9cfccd9abfaf19"
 
 [[text]]
 path = "SKILLS/study-wb/lib/vendor/licenses/mermaid.LICENSE.txt"

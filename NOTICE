@@ -18,6 +18,9 @@ licensed MIT OR Apache-2.0 unless noted:
 - SKILLS/is-devx, "Several agents at once": adapted from storytold/photocraft AGENTS.md at
   017c4aab9e6537be396b6449a84d7a94e4bfaafd and storytold/wordcraft AGENTS.md at
   565032feb1fced8e5818288a5aa8d1aef96cc8be.
+- SKILLS/is-arch: adapted from NoteCraft SKILLS/nc-arch/SKILL.md at
+  d5666b4dc82d8ebe528b75745c465a1bf335a52b; architecture boundaries and content-specific
+  guidance were rewritten for I-SUCCESS's current Rust workspace and stated course-content goals.
 - xtask license-check and licenses.toml: modelled on storytold/pdfcraft
   docs/licensing-self-check.md at 74eef8cc0f35bf342ac61fd2d5b310e6d5efe156; the code is new.
 

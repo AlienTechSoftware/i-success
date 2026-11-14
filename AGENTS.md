@@ -76,6 +76,7 @@ built the way the ArtCraft Craft apps are. Math comes first. See [`README.md`](R
 
 | Skill | Owns |
 |---|---|
+| [`is-arch`](SKILLS/is-arch/SKILL.md) | Architecture and MVC boundaries, data flow, and future course or media content types |
 | [`is-code`](SKILLS/is-code/SKILL.md) | The code guide: crate layers, never crash, errors, tests without mocks, style, dependencies |
 | [`is-devx`](SKILLS/is-devx/SKILL.md) | Setup, `run.cmd`, `cargo xtask`, coverage, hooks, the CI workflow, branches and commits |
 | [`is-content`](SKILLS/is-content/SKILL.md) | `content/catalog.toml`: original, labelled problems whose steps reach their answers |

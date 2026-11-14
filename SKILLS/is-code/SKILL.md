@@ -4,7 +4,7 @@ description: The I-SUCCESS code guide. Use when writing, changing or reviewing R
 license: MIT
 metadata:
   version: "0.1.20261113"
-  related_skills: [is-devx, is-ui, is-content]
+  related_skills: [is-arch, is-devx, is-ui, is-content]
 ---
 
 # is-code - the I-SUCCESS code guide
