@@ -1,5 +1,7 @@
 # I-SUCCESS
 
+![I-SUCCESS banner](assets/brand/i-success-banner.png)
+
 Adaptive practice for every grade, from Pre-K to university, rebuilt in pure Rust.
 
 Pick a subject, open a level, choose a grade and practise its skills one problem at a time:

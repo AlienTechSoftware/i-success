@@ -3,8 +3,9 @@ name: CI
 # The same checks as `cargo xtask ci` and `cargo xtask coverage`, on GitHub's hosted runners.
 # Every action is pinned to a full commit; the comment names its release.
 #
-# Jobs: fmt, clippy, names (no forbidden product name in any text file), build and test on
-# Linux, Windows and macOS, and coverage with a floor. The last job, `CI`, passes only when all
+# Jobs: fmt, static checks (no forbidden product name in any text file; licence texts present
+# and unchanged, every asset attributed), clippy, build and test on Linux, Windows and macOS,
+# and coverage with a floor. The last job, `CI`, passes only when all
 # of them passed, so branch protection needs to require that one check alone.
 
 on:
@@ -38,15 +39,18 @@ jobs:
         run: rustup install
       - run: cargo fmt --all -- --check
 
-  names:
-    name: names
+  static:
+    name: static checks
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install Rust
         run: rustup install
-      - run: cargo xtask names
+      - name: Names
+        run: cargo xtask names
+      - name: Licences and attribution
+        run: cargo xtask license-check
 
   clippy:
     name: clippy
@@ -141,7 +145,7 @@ jobs:
   ci-status:
     name: CI
     runs-on: ubuntu-24.04
-    needs: [fmt, names, clippy, build-test, coverage]
+    needs: [fmt, static, clippy, build-test, coverage]
     if: always()
     steps:
       - name: Every job must have passed

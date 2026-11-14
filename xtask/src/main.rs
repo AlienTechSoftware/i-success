@@ -5,6 +5,8 @@
 //!     cargo xtask clippy   clippy on every target, warnings denied
 //!     cargo xtask test     the whole workspace's tests
 //!     cargo xtask names    no file names a product this project must not mention
+//!     cargo xtask license-check   licence texts present and unchanged, assets attributed
+//!                          (`--hashes` prints the current hashes, after a re-audit)
 //!     cargo xtask coverage line coverage of the library crates; fails below the floor
 //!
 //! `coverage` is not part of `ci` because it rebuilds everything instrumented; CI runs it as its
@@ -16,6 +18,8 @@
 //! `names` reads every text file in the repository except build output, git's own folder and
 //! vendored third-party code, and fails on a whole-word, case-insensitive match. The words are
 //! assembled from letters below, so this file does not trip its own check.
+
+mod licenses;
 
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
@@ -40,10 +44,11 @@ fn main() -> ExitCode {
     let task = std::env::args().nth(1).unwrap_or_default();
     let root = repo_root();
     let ok = match task.as_str() {
-        "ci" => ["fmt", "clippy", "test", "names"].iter().all(|t| run_task(t, &root)),
-        "fmt" | "clippy" | "test" | "names" | "coverage" => run_task(&task, &root),
+        "ci" => ["fmt", "clippy", "test", "names", "license-check"].iter().all(|t| run_task(t, &root)),
+        "license-check" if std::env::args().nth(2).as_deref() == Some("--hashes") => licenses::print_hashes(&root),
+        "fmt" | "clippy" | "test" | "names" | "license-check" | "coverage" => run_task(&task, &root),
         _ => {
-            eprintln!("usage: cargo xtask <ci | fmt | clippy | test | names | coverage>");
+            eprintln!("usage: cargo xtask <ci | fmt | clippy | test | names | license-check [--hashes] | coverage>");
             return ExitCode::from(2);
         }
     };
@@ -69,6 +74,7 @@ fn run_task(task: &str, root: &Path) -> bool {
         "clippy" => cargo(root, &["clippy", "--workspace", "--all-targets", "--", "-D", "warnings"]),
         "test" => cargo(root, &["test", "--workspace"]),
         "names" => names(root),
+        "license-check" => licenses::check(root),
         "coverage" => coverage(root),
         _ => false,
     }

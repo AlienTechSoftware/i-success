@@ -55,6 +55,14 @@ program's `run.cmd` from `PATH` (nvm-windows ships one), always in PowerShell, a
 3. `test`: `cargo test --workspace`
 4. `names`: every text file outside `target`, `.git` and vendored code is searched for product
    names this project must not mention; any whole-word hit fails.
+5. `license-check`: every text listed in `licenses.toml` (the project's licences, `NOTICE`, each
+   vendored library's licence) is present and has the SHA-256 it had when it was audited; every
+   vendored script is covered by a text; every file in `assets/` has a row in `ATTRIBUTION.md`;
+   the house-rules blocks in `AGENTS.md` still match their source hashes.
+
+When a licence text or `NOTICE` changes on purpose, read it again against its source, then run
+`cargo xtask license-check --hashes` and copy the new hash into `licenses.toml` in the same
+change. Never update a hash only to make the check pass.
 
 `cargo xtask coverage` needs `cargo-llvm-cov` (installing it is your decision; CI installs a
 pinned version). It runs the tests instrumented, writes `target/coverage/lcov.info`, prints a
@@ -77,9 +85,9 @@ Windows console cannot encode. Its own guide is `SKILLS/study-wb/SKILL.md`.
 | When | What runs | Where |
 |---|---|---|
 | While working | the focused tests of the crate you changed, `cargo fmt` | by hand |
-| Every commit | `cargo fmt --check`, `cargo xtask names` | `.githooks/pre-commit` |
+| Every commit | `cargo fmt --check`, `cargo xtask names`, `cargo xtask license-check` | `.githooks/pre-commit` |
 | Every push | `cargo xtask ci` | `.githooks/pre-push` |
-| Every pull request and push to `main` | fmt, names, clippy, build and test on Linux, Windows and macOS, coverage with its floor | `.github/workflows/ci.yml` |
+| Every pull request and push to `main` | fmt, static checks (names, licences), clippy, build and test on Linux, Windows and macOS, coverage with its floor | `.github/workflows/ci.yml` |
 
 The workflow's last job is named `CI` and passes only when every other job passed. Branch
 protection should require that one check.
@@ -104,10 +112,34 @@ a pin in a change of its own.
 - Before opening a pull request: `cargo xtask ci`, `cargo xtask coverage` if library code
   changed, the screen pictures if the look changed, and a description that says what was run.
 
+## Several agents at once
+
+Adapted from the PhotoCraft and WordCraft guides, where many agents work in one checkout.
+
+- **Own build folder.** Each agent builds into its own target folder so they do not wait on
+  Cargo's build lock: `CARGO_TARGET_DIR=target/agent-<name>` (PowerShell:
+  `$env:CARGO_TARGET_DIR = "target/agent-<name>"`). Delete it when the work is finished; each
+  is several gigabytes.
+- **Own files.** Agree which crates or files each agent owns, and edit only those. Shared files
+  (`crates/ui-egui/src/lib.rs`, `content/catalog.toml`, `Cargo.toml`) get small, surgical edits;
+  re-read the file right before editing it.
+- **Never fix another agent's half-written work.** If someone else's in-progress edit breaks
+  the build, wait and retry, or tell the owner. Do not repair, revert or stash their files.
+- **Manifests are written whole.** `members = ["crates/*", ...]` means one broken `Cargo.toml`
+  breaks every agent's build. Write a new or rewritten manifest to a temporary file outside
+  `crates/` and move it into place in one step.
+- **Look before you trust a file.** A file can change between your read and your edit. When a
+  tool reports that a file changed on disk, read it again before writing.
+- **Hand over in writing.** Sessions end without warning. Keep the tree building at every
+  step, and leave what you did, what you checked and what is open where the next agent will
+  read it.
+
 ## Keeping the docs true
 
 - New command or check: add it to `run.cmd`, to this skill and to `AGENTS.md` in the same
   change.
 - New asset: a row in `ATTRIBUTION.md` in the same change; a third-party licence text goes
-  beside the files it covers.
+  beside the files it covers and gets an entry in `licenses.toml`.
+- New house-rules text upstream: copy the blocks again from `storytold/craft-contrib`
+  `standards/`, with the new commit and hashes in their markers. Never edit them in place.
 - Changed tooling version: `rust-toolchain.toml`, the workflow and this skill together.

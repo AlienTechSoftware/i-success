@@ -1,0 +1,56 @@
+# Every licence and notice text this repository ships, with the SHA-256 of its bytes as audited.
+# `cargo xtask license-check` (part of `cargo xtask ci`) refuses a missing, empty or changed text,
+# a vendored script no text covers, an asset with no ATTRIBUTION.md row, and an edited copy of the
+# house rules in AGENTS.md.
+#
+# When a text changes: read it again against its source, then run
+#     cargo xtask license-check --hashes
+# and copy its new hash here in the same change. Never update a hash only to make the check pass.
+
+[[text]]
+path = "LICENSE-MIT"
+covers = ["."]
+source = "MIT License text, written for this project; copyright line: The i-success contributors"
+sha256 = "11f7824a630ffe5ef851d854cdbd6bd44286feb23d3db9fef93ebce3ac570f49"
+
+[[text]]
+path = "LICENSE-APACHE"
+covers = ["."]
+source = "Apache License 2.0: the terms and conditions are identical to https://www.apache.org/licenses/LICENSE-2.0.txt (compared 2026-11-13); the closing appendix on how to apply the licence is left out, as in other Rust projects"
+sha256 = "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+
+[[text]]
+path = "NOTICE"
+covers = ["."]
+source = "Written for this project: copyright, source provenance and third-party notices"
+sha256 = "b88ae8fff47ff8b738eccc22d7f928fb3c2d635249a7595abfaa4c332f5fa4e2"
+
+[[text]]
+path = "SKILLS/study-wb/lib/vendor/licenses/mermaid.LICENSE.txt"
+covers = ["SKILLS/study-wb/lib/vendor/mermaid.min.js"]
+source = "LICENSE of the npm package mermaid@11.4.1 (cdn.jsdelivr.net/npm/mermaid@11.4.1/LICENSE), unchanged"
+sha256 = "ec9fb67dcb25eccc416ed56e1aab819222c805a2a4bfe4cb19e7556bf2ffde80"
+
+[[text]]
+path = "SKILLS/study-wb/lib/vendor/licenses/d3.LICENSE.txt"
+covers = ["SKILLS/study-wb/lib/vendor/d3.min.js"]
+source = "LICENSE of the npm package d3@7.9.0 (cdn.jsdelivr.net/npm/d3@7.9.0/LICENSE), unchanged"
+sha256 = "3e6849627f74ff73c257a3ae1efb574015d94fc1035c05ec3c15805165efcbc4"
+
+[[text]]
+path = "SKILLS/study-wb/lib/vendor/licenses/vega.LICENSE.txt"
+covers = ["SKILLS/study-wb/lib/vendor/vega.min.js"]
+source = "LICENSE of the npm package vega@5.30.0 (cdn.jsdelivr.net/npm/vega@5.30.0/LICENSE), unchanged"
+sha256 = "63727832aaf62004a2b249c933e327f3c90caf49e41a72f4bf436edf632cbda8"
+
+[[text]]
+path = "SKILLS/study-wb/lib/vendor/licenses/vega-lite.LICENSE.txt"
+covers = ["SKILLS/study-wb/lib/vendor/vega-lite.min.js"]
+source = "LICENSE of the npm package vega-lite@5.21.0 (cdn.jsdelivr.net/npm/vega-lite@5.21.0/LICENSE), unchanged"
+sha256 = "f618900fd0d64046963b29f40590cdd1e341a2f41449f99110d82fd81fea808c"
+
+[[text]]
+path = "SKILLS/study-wb/lib/vendor/licenses/vega-embed.LICENSE.txt"
+covers = ["SKILLS/study-wb/lib/vendor/vega-embed.min.js"]
+source = "LICENSE of the npm package vega-embed@6.26.0 (cdn.jsdelivr.net/npm/vega-embed@6.26.0/LICENSE), unchanged"
+sha256 = "32df67148f0fc3db0eb9e263a7b75d07f1eb14c61955005a4a39c6918d10d137"

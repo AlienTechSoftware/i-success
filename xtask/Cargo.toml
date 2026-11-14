@@ -1,6 +1,6 @@
 [package]
 name = "xtask"
-description = "Repository tasks: cargo xtask ci | fmt | clippy | test | names"
+description = "Repository tasks: cargo xtask ci | fmt | clippy | test | names | license-check | coverage"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -10,3 +10,8 @@ publish.workspace = true
 
 [lints]
 workspace = true
+
+[dependencies]
+serde = { workspace = true }
+toml = { workspace = true }
+sha2 = { workspace = true }

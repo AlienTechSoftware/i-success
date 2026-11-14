@@ -1,5 +1,6 @@
 #!/bin/sh
-# Quick checks before every commit: formatting, and no forbidden product name in any text file.
+# Quick checks before every commit: formatting, no forbidden product name in any text file, and
+# licence texts present and unchanged with every asset attributed.
 # Turn the hooks on once per clone:  git config core.hooksPath .githooks
 # These read the working tree, not only what is staged.
 set -e
@@ -7,3 +8,5 @@ echo "pre-commit: cargo fmt --check"
 cargo fmt --all -- --check
 echo "pre-commit: cargo xtask names"
 cargo xtask names
+echo "pre-commit: cargo xtask license-check"
+cargo xtask license-check

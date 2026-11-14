@@ -3,6 +3,24 @@ Copyright (c) 2026 The i-success contributors.
 Licensed under the MIT License or the Apache License, Version 2.0, at your option
 (LICENSE-MIT, LICENSE-APACHE).
 
+Source provenance
+
+Guidance adapted from the ArtCraft Craft repositories (storytold organisation on GitHub),
+licensed MIT OR Apache-2.0 unless noted:
+
+- AGENTS.md, the "House rules", "Rust Craft repositories" and "Licence allowlist" blocks:
+  copied verbatim from storytold/craft-contrib standards/house-rules-core.md and
+  standards/house-rules-rust.md at 0f6cc4848ef0d2c5346b39d0ed6305c4cf94b0d7. That repository
+  carries no licence file; copying these blocks into each Craft repository is its documented
+  use (RFC-0006).
+- SKILLS/is-clean-room: adapted from storytold/craft-libs docs/clean-room.md at
+  a2be97cf8edd5b1549f8a60483bf60a0715c1fcc.
+- SKILLS/is-devx, "Several agents at once": adapted from storytold/photocraft AGENTS.md at
+  017c4aab9e6537be396b6449a84d7a94e4bfaafd and storytold/wordcraft AGENTS.md at
+  565032feb1fced8e5818288a5aa8d1aef96cc8be.
+- xtask license-check and licenses.toml: modelled on storytold/pdfcraft
+  docs/licensing-self-check.md at 74eef8cc0f35bf342ac61fd2d5b310e6d5efe156; the code is new.
+
 Third-party material
 
 This product bundles third-party material under its own licences. The per-file list (what it

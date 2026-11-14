@@ -14,9 +14,10 @@ metadata:
 Write Rust that fits the workspace: the right crate, no crashes, honest errors, tests that use
 the real code, and a change that passes `cargo xtask ci` before anyone calls it done.
 
-This repository follows the shared house rules of the ArtCraft Craft apps
-(`standards/house-rules-core.md` and `standards/house-rules-rust.md` in `storytold/craft-contrib`).
-Where this guide is stricter, this guide wins; it is never weaker.
+This repository follows the shared house rules of the ArtCraft Craft apps, copied verbatim at
+the top of `AGENTS.md` (from `standards/` in `storytold/craft-contrib`), with a table of where
+this repository does not meet them yet. Where this guide is stricter, this guide wins; it is
+never weaker.
 
 ## 1. Where a change goes
 
@@ -98,8 +99,8 @@ Questions to settle before writing:
 
 - Ask before adding one. Prefer what the Craft apps already use (versions in the workspace
   `Cargo.toml` follow NoteCraft and WordCraft) and the shared `craft-libs` crates.
-- The licence must be on the suite allowlist: ISC, MIT, BSD-2-Clause, BSD-3-Clause, Apache-2.0,
-  Unicode-3.0, OFL-1.1, Ubuntu-font-1.0, Bitstream-Vera, CC0-1.0, CC-BY-4.0, CC-BY-SA-4.0.
+- The licence must be on the suite's licence allowlist, copied verbatim at the top of
+  `AGENTS.md`. A licence outside it is a stop-and-ask (house rule 9).
 - Declare it once in `[workspace.dependencies]` and use `{ workspace = true }` in the crate.
 
 ## 7. The one exception: the JavaScript proof of concept
@@ -110,6 +111,8 @@ practice pages behave, and it is not part of the app. Do not add JavaScript anyw
 do not move app behaviour into it.
 
 ## 8. Clean room and names
+
+The full procedure, with the record to keep, is `is-clean-room`.
 
 - Learn from behaviour you can see and from public specifications. Copy no other product's code,
   questions, wording, images or marks.

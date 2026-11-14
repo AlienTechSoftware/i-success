@@ -25,6 +25,8 @@ egui_kittest = "0.37"
 image = { version = "0.25", default-features = false, features = ["png"] }
 serde = { version = "1", features = ["derive"] }
 toml = "1.1"
+# xtask only: the SHA-256 of each audited licence text (cargo xtask license-check).
+sha2 = "0.10"
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
