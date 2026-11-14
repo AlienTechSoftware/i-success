@@ -1,0 +1,158 @@
+name: CI
+
+# The same checks as `cargo xtask ci` and `cargo xtask coverage`, on GitHub's hosted runners.
+# Every action is pinned to a full commit; the comment names its release.
+#
+# Jobs: fmt, clippy, names (no forbidden product name in any text file), build and test on
+# Linux, Windows and macOS, and coverage with a floor. The last job, `CI`, passes only when all
+# of them passed, so branch protection needs to require that one check alone.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  RUST_BACKTRACE: "1"
+  # eframe and wgpu need these to build on Linux; the UI tests themselves need no display.
+  LINUX_DEPS: pkg-config libxkbcommon-dev libwayland-dev libx11-dev libxcursor-dev libxrandr-dev libxi-dev libgtk-3-dev libfontconfig1-dev libfreetype-dev libvulkan1 mesa-vulkan-drivers
+
+jobs:
+  fmt:
+    name: fmt
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Rust (the version in rust-toolchain.toml)
+        run: rustup install
+      - run: cargo fmt --all -- --check
+
+  names:
+    name: names
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Rust
+        run: rustup install
+      - run: cargo xtask names
+
+  clippy:
+    name: clippy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends $LINUX_DEPS
+      - name: Install Rust
+        run: rustup install
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+
+  build-test:
+    name: build/test (${{ matrix.platform }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux
+            runner: ubuntu-24.04
+          - platform: windows
+            runner: windows-2025
+          - platform: macos
+            runner: macos-15
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Linux build dependencies
+        if: matrix.platform == 'linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends $LINUX_DEPS
+      - name: Install Rust
+        run: rustup install
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Build
+        run: cargo build --workspace --locked
+      - name: Test
+        run: cargo test --workspace --locked
+
+  coverage:
+    name: coverage
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      LLVM_COV_VERSION: "0.9.1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends $LINUX_DEPS
+      - name: Install Rust and LLVM tools
+        run: |
+          rustup install
+          rustup component add llvm-tools
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          key: coverage
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+      # Restored after rust-cache, because binaries present before it starts are left out of its cache.
+      - name: Cache the coverage tool
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: ~/.cargo/bin/cargo-llvm-cov
+          key: cargo-llvm-cov-${{ runner.os }}-${{ runner.arch }}-${{ env.LLVM_COV_VERSION }}-${{ hashFiles('rust-toolchain.toml') }}
+      - name: Install the pinned coverage tool
+        run: |
+          if [[ "$(cargo llvm-cov --version 2>/dev/null || true)" != "cargo-llvm-cov $LLVM_COV_VERSION" ]]; then
+            cargo install cargo-llvm-cov --locked --version "$LLVM_COV_VERSION" --force
+          fi
+          cargo llvm-cov --version
+      - name: Coverage (fails below the floor in xtask/src/main.rs)
+        run: cargo xtask coverage
+      - name: Keep the LCOV report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: lcov
+          path: target/coverage/lcov.info
+          if-no-files-found: warn
+
+  ci-status:
+    name: CI
+    runs-on: ubuntu-24.04
+    needs: [fmt, names, clippy, build-test, coverage]
+    if: always()
+    steps:
+      - name: Every job must have passed
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Results: $RESULTS"
+          for result in $RESULTS; do
+            if [[ "$result" != "success" ]]; then
+              echo "A required job did not pass ($result)."
+              exit 1
+            fi
+          done
+          echo "CI checks passed"

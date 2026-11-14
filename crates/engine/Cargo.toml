@@ -1,0 +1,18 @@
+[package]
+name = "i-success-engine"
+description = "I-SUCCESS engine: checks a learner's answers and runs a practice session through a skill's problems and steps. No UI"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+i-success-model = { workspace = true }
+
+[dev-dependencies]
+i-success-content = { workspace = true }

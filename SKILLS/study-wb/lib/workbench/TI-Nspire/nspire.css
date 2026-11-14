@@ -1,0 +1,66 @@
+/* TI-Nspire/nspire.css - styles for the TI-Nspire CX II CAS-style emulator (see nspire.js). */
+.nsd { position:relative; width:100%; aspect-ratio:800/1753; background:#1b1e21 center/100% 100% no-repeat; border-radius:14px; user-select:none; -webkit-user-select:none; outline:none; font-family:Arial,Helvetica,sans-serif; }
+.nsd:focus-visible { box-shadow:0 0 0 3px #0668c9; }
+.nsd.noimg { background:linear-gradient(#23272b,#15181b); box-shadow:inset 7% 0 0 -5% #3fb0ff; }
+.nsd-wrap { position:absolute; left:12.25%; top:8.67%; width:75.9%; height:26.1%; overflow:hidden; background:#fff; }
+.nsd-lcd { position:absolute; left:0; top:0; width:320px; height:240px; transform-origin:0 0; font:11px/1.25 Arial,Helvetica,sans-serif; color:#111; background:#fff; overflow:hidden; }
+.nsd-key { position:absolute; border:0; padding:0; margin:0; background:transparent; border-radius:9px; cursor:pointer; color:transparent; font-size:0; }
+.nsd-key:hover { background:rgba(255,255,255,.13); }
+.nsd-key:active, .nsd-key.on { background:rgba(70,170,255,.5); }
+.nsd.noimg .nsd-key { color:#fff; background:#353a40; font:bold calc(var(--k,1) * 12px)/1 Arial,sans-serif; border-radius:7px; box-shadow:0 2px 0 #0b0d0f; }
+.nsd.noimg .nsd-key.num { background:#555b62; font-size:calc(var(--k,1) * 17px); }
+.nsd.noimg .nsd-key.blue { background:#2c8fe0; }
+.nsd.noimg .nsd-key:active, .nsd.noimg .nsd-key.on { background:#2c8fe0; }
+.nsd.debug .nsd-key { outline:1px solid rgba(255,0,0,.8); color:#f33; font-size:calc(var(--k,1) * 9px); }
+
+/* ---- LCD contents (320 x 240 virtual pixels) ---- */
+.nsd-lcd .tb { position:absolute; left:0; top:0; width:320px; height:24px; background:#e7e9eb; display:flex; align-items:stretch; font-size:12px; }
+.nsd-lcd .tb .arr { width:14px; color:#4a5560; text-align:center; line-height:24px; cursor:pointer; font-size:10px; }
+.nsd-lcd .tb .tab { padding:0 8px; line-height:24px; color:#222; cursor:pointer; background:#c9ced2; margin-right:1px; }
+.nsd-lcd .tb .tab.on { background:#fff; }
+.nsd-lcd .tb .doc { flex:1; text-align:center; line-height:24px; color:#2a2f35; padding:0 4px; white-space:nowrap; overflow:hidden; }
+.nsd-lcd .tb .rad { line-height:24px; padding:0 4px; color:#2a2f35; font-size:11px; }
+.nsd-lcd .tb .bat { width:11px; height:16px; margin:4px 3px; border:1px solid #2a2f35; background:linear-gradient(#25b04a,#25b04a) bottom/100% 85% no-repeat; border-radius:2px; }
+.nsd-lcd .tb .x { width:18px; text-align:center; line-height:24px; cursor:pointer; font-size:13px; }
+.nsd-lcd .tbl { position:absolute; left:0; top:24px; width:320px; height:3px; background:#00a3e0; }
+.nsd-lcd .pg { position:absolute; left:0; top:27px; width:320px; height:213px; overflow:hidden; }
+.nsd-lcd .hist { position:absolute; left:0; top:0; width:320px; height:169px; overflow:auto; padding:2px 6px; box-sizing:border-box; }
+.nsd-lcd .hist .e { color:#444; font-size:11px; }
+.nsd-lcd .hist .r { text-align:right; font-size:13px; font-weight:bold; margin-bottom:2px; }
+.nsd-lcd .hist .a { text-align:right; font-size:10px; color:#667; }
+.nsd-lcd .hist .err { color:#b42318; }
+.nsd-lcd .ent { position:absolute; left:3px; top:171px; width:314px; height:22px; border:1px solid #8a95a0; border-radius:2px; box-sizing:border-box; padding:2px 4px; font-size:13px; white-space:nowrap; overflow:hidden; background:#fff; }
+.nsd-lcd .ent .pre { color:#0b57d0; font-weight:bold; margin-right:3px; }
+.nsd-lcd .ent .caret { display:inline-block; width:1px; height:14px; background:#111; vertical-align:-2px; animation:nsblink 1s steps(1) infinite; }
+.nsd-lcd .ent.nofocus .caret { visibility:hidden; animation:none; }
+@keyframes nsblink { 50% { opacity:0; } }
+.nsd-lcd .strip { position:absolute; left:0; top:195px; width:320px; height:18px; background:#f1f3f5; border-top:1px solid #d7dde3; font-size:10px; color:#55616d; line-height:17px; padding:0 6px; box-sizing:border-box; display:flex; justify-content:space-between; }
+.nsd-lcd .strip b { color:#0b57d0; }
+.nsd-lcd canvas { position:absolute; left:0; top:0; width:320px; height:169px; }
+.nsd-lcd .toast { position:absolute; left:4px; right:4px; bottom:26px; background:rgba(255,255,255,.96); border:1px solid #00a3e0; border-radius:3px; padding:3px 6px; font:11px/1.3 ui-monospace,Consolas,monospace; white-space:pre-wrap; max-height:96px; overflow:auto; z-index:3; }
+.nsd-lcd .menu { position:absolute; left:6px; top:30px; min-width:150px; max-width:300px; max-height:200px; overflow:auto; background:#fff; border:1px solid #6c7a89; box-shadow:2px 2px 4px rgba(0,0,0,.35); z-index:5; font-size:12px; }
+.nsd-lcd .menu .mt { background:#00a3e0; color:#fff; padding:2px 6px; font-weight:bold; }
+.nsd-lcd .menu .mi { padding:2px 8px; cursor:pointer; white-space:nowrap; }
+.nsd-lcd .menu .mi.sel { background:#cfe9fa; }
+.nsd-lcd .menu .mi i { color:#667; font-style:normal; margin-right:6px; }
+.nsd-lcd .home { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:12px; }
+.nsd-lcd .home .ic { border:2px solid #c7d0d8; border-radius:6px; padding:16px 4px; text-align:center; font-size:13px; font-weight:bold; cursor:pointer; background:#f7fafc; }
+.nsd-lcd .home .ic.sel { border-color:#00a3e0; background:#e5f5fd; }
+.nsd-lcd .home .hh { grid-column:1 / 3; font-size:12px; color:#556; }
+.nsd-lcd .dlg { position:absolute; left:20px; top:34px; width:280px; background:#fff; border:2px solid #00a3e0; border-radius:4px; padding:8px; z-index:6; }
+.nsd-lcd .dlg h4 { margin:0 0 6px; font-size:12px; }
+.nsd-lcd .dlg label { display:flex; align-items:center; gap:6px; margin:3px 0; font-size:11px; }
+.nsd-lcd .dlg label span { width:40px; }
+.nsd-lcd input, .nsd-lcd select { font:11px Arial; padding:1px 3px; border:1px solid #8a95a0; border-radius:2px; box-sizing:border-box; min-width:0; text-align:left; }
+.nsd-lcd .dlg input { flex:1; }
+.nsd-lcd .tab-wrap { position:absolute; left:0; top:0; width:320px; height:195px; overflow:auto; padding:4px 6px; box-sizing:border-box; }
+.nsd-lcd .nst { border-collapse:collapse; width:100%; font:11px ui-monospace,Consolas,monospace; margin-top:4px; }
+.nsd-lcd .nst th, .nsd-lcd .nst td { border:1px solid #d0d7de; padding:1px 4px; text-align:right; }
+.nsd-lcd .nst th { background:#e9eef2; }
+.nsd-lcd .tools { position:absolute; left:0; top:0; width:320px; height:195px; overflow:auto; padding:4px 6px; box-sizing:border-box; font-size:11px; }
+.nsd-lcd .tools .pgrid { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+.nsd-lcd .tools .pl { display:block; font-size:10px; color:#445; margin:2px 0; }
+.nsd-lcd .tools .ph { margin:8px 0 2px; font-weight:bold; color:#0b57d0; }
+.nsd-lcd .tools .pout { margin:3px 0; padding:2px 4px; border:1px solid #d0d7de; font:10px/1.3 ui-monospace,Consolas,monospace; white-space:pre-wrap; min-height:14px; }
+.nsd-lcd .tools button { font:11px Arial; padding:2px 6px; margin:2px 3px 2px 0; border:1px solid #8a95a0; background:#eef2f5; border-radius:2px; color:#111; }
+.nsd-lcd .tools input { width:100%; }

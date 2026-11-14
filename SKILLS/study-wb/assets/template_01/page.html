@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{TITLE}}</title>
+  <!-- Apply the saved dark theme before first paint, so the page does not flash light. -->
+  <script>(function () { try { var o = JSON.parse(localStorage.getItem('{{STORAGE_KEY}}-options')) || {}; if (o.theme === 'dark' || (o.theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); } catch (e) {} })();</script>
+  <link rel="stylesheet" href="{{KIT}}study-kit.css">
+  <link rel="stylesheet" href="page.css">
+{{HEAD_EXTRA}}</head>
+<body>
+  <!-- Built by study-wb (scripts/build_study_aid.py) from a content file. Edit the content file and rebuild; edits here are overwritten. -->
+  <script src="{{DATA_SCRIPT}}"></script>
+  <script src="{{KIT}}study-kit.js?v={{KIT_V}}"></script>
+  <script src="{{WB}}workbench.js?v={{WB_V}}" data-key="{{STORAGE_KEY}}-bench"{{WORKBENCH_ATTRS}}></script>
+</body>
+</html>

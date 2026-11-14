@@ -1,0 +1,8 @@
+# TI's product photo of the handheld: a local skin only, never published.
+SKILLS/study-wb/lib/workbench/TI-Nspire/TI-Nspire.jpg
+
+# Python caches written by the study-wb scripts and tests.
+__pycache__/
+
+# Cargo build output.
+/target/

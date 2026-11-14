@@ -1,0 +1,37 @@
+<!--
+  study-wb examples gallery. Presentation is here and in index.css; behavior in index.js; the cards' data in
+  index.data.js, which scripts/build_examples_index.py generates from each example's content file, so the cards
+  never drift from the examples. Opens from disk; no server, no network.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>study-wb examples</title>
+<script>(function () { try { var s = JSON.parse(localStorage.getItem('studywb-gallery')) || {}; if (s.mode) document.documentElement.dataset.mode = s.mode; if (s.theme) document.documentElement.dataset.theme = s.theme; } catch (e) {} })();</script>
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+<main>
+  <div class="top">
+    <div>
+      <h1>study-wb examples</h1>
+      <p class="muted">Practice pages built from plain content files: each card is one example, built and verified by the skill's own scripts.</p>
+    </div>
+    <div class="controls">
+      <label class="switch"><span>Light / Dark</span><input id="mode" type="checkbox" checked aria-label="Light / Dark"><i aria-hidden="true"></i></label>
+      <label for="theme">Theme</label>
+      <select id="theme"><option value="default">default</option><option value="green">green</option><option value="red">red</option></select>
+    </div>
+  </div>
+  <div class="filters">
+    <input id="q" class="search" type="search" placeholder="Search examples: subject, widget, tool..." aria-label="Search examples">
+    <div class="row" id="subjects" role="group" aria-label="Subject"></div>
+  </div>
+  <section class="grid" id="grid" aria-live="polite"></section>
+</main>
+<script src="index.data.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

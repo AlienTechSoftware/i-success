@@ -1,0 +1,7 @@
+/* Example of a page-level theme override: a green palette. Loaded after page.css, so these tokens win.
+   The workbench reads the same tokens, so the side pane turns green too. */
+:root {
+  --blue: #2e7d32;
+  --blue-dark: #1b5e20;
+  --pale: #edf7ee;
+}

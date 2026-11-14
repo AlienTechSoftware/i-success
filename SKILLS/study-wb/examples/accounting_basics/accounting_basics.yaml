@@ -1,0 +1,159 @@
+# study-wb example: introductory bookkeeping for an invented bike repair shop (invented company, names and numbers).
+# Shows the accounting equation, a classify table, debit and credit picks in a table, the statement-effects grid,
+# straight-line depreciation and an unearned-revenue TWIST. Every problem is a generated drill.
+#
+#   python ../../scripts/validate_study_data.py accounting_basics.yaml
+#   python ../../scripts/build_study_aid.py accounting_basics.yaml
+#   python ../../scripts/verify_page.py accounting_basics.html
+
+build: { name: accounting_basics, runtime: link }
+
+page:
+  title: Accounting Basics Study Page (example)
+  storageKey: studywb-example-accounting-basics
+  heading: Bookkeeping Basics - Equation, Entries and Adjustments
+  subtitle: Invented example content
+
+timer: { minutes: 40, multiplier: 1, note: "Example value." }
+
+workbench:
+  tools: [calculator, notepad]
+
+reference:
+  - title: Two rules
+    html: "<p><strong>Assets = Liabilities + Equity</strong> · <strong>Debit</strong> raises assets and expenses · <strong>Credit</strong> raises liabilities, equity and revenue.</p>"
+
+howto:
+  equation:
+    title: The accounting equation
+    html: |
+      <ol><li>Assets = Liabilities + Equity <span class="star">(*)</span>.</li><li>Solve for the missing piece: Equity = Assets − Liabilities.</li><li>Net income adds to equity; owner withdrawals take from it.</li></ol>
+      <p class="memory"><strong>Say it out loud:</strong> "What the shop has equals what it owes plus what the owner owns."</p>
+  entry:
+    title: Debits and credits
+    html: |
+      <ol><li>Name the accounts that change.</li><li>Asset or expense going up: <strong>debit</strong>. Liability, equity or revenue going up: <strong>credit</strong>.</li><li>Total debits equal total credits <span class="star">(*)</span>.</li></ol>
+      <div class="surprise"><strong>Trap:</strong> revenue is earned when the work is done, not when the cash arrives.</div>
+  depreciation:
+    title: Straight-line depreciation
+    html: |
+      <ol><li>Depreciable cost = cost − salvage value.</li><li>Yearly depreciation = depreciable cost ÷ useful life <span class="star">(*)</span>.</li><li>Book value = cost − accumulated depreciation.</li></ol>
+      <p class="memory"><strong>Say it out loud:</strong> "Cost minus salvage, spread evenly over the life."</p>
+
+groups:
+  - id: Basics
+    caption: The equation and the accounts
+    problems:
+      - name: "[AI#1] Solve the equation"
+        label: generated
+        howto: equation
+        blocks:
+          - "<p>Juniper Lane Bike Repair has assets of $48,000 and liabilities of $17,500.</p>"
+          - answers:
+              rows:
+                - { label: Owner's equity, name: eq, answer: 30500, prefix: "$" }
+                - { label: "Assets after a month with $2,300 net income (liabilities unchanged)", name: a2, answer: 50300, prefix: "$" }
+        steps:
+          - { say: "Equity = 48,000 − 17,500 = <strong>$30,500</strong> <span class=\"star\">(*)</span>", fill: { eq: 30500 } }
+          - { say: "Net income raises equity to 32,800; assets = 17,500 + 32,800 = <strong>$50,300</strong>", fill: { a2: 50300 } }
+        keys:
+          - { keys: [48000, "−", 17500, "="], meaning: equity, value: 30500 }
+          - { keys: [48000, "+", 2300, "="], meaning: "assets after net income", value: 50300 }
+      - name: "[AI#2] Sort the accounts"
+        label: generated
+        howto: entry
+        blocks:
+          - "<p>Classify each of the shop's accounts.</p>"
+          - classify:
+              options: [Asset, Liability, Equity, Revenue, Expense]
+              autoSteps: true
+              items:
+                - [Cash, Asset, something the shop owns]
+                - [Repair tools, Asset, owned and used for years]
+                - [Accounts payable, Liability, owed to a parts supplier]
+                - [Unearned revenue, Liability, work customers paid for and the shop still owes]
+                - [Owner's capital, Equity, the owner's stake]
+                - [Repair revenue, Revenue, earned by doing repairs]
+                - [Shop rent, Expense, used up to earn this month's revenue]
+        steps: auto
+      - name: "[AI#3] Which statement?"
+        label: generated
+        blocks:
+          - choice:
+              name: stmt
+              question: Which statement reports revenue and expenses for a period of time?
+              options: [Balance sheet, Income statement, Statement of cash flows, Trial balance]
+              answer: B
+        steps:
+          - { say: "Revenue minus expenses over a period is the <strong>income statement (B)</strong>.", fill: { stmt: B } }
+
+  - id: Entries
+    caption: Journal entries and their effects
+    problems:
+      - name: "[AI#4] Repairs on account"
+        label: generated
+        howto: entry
+        blocks:
+          - "<p>The shop repaired bikes for $850. The customers will pay next month.</p>"
+          - table:
+              head: [Account, Debit or credit, Amount]
+              rows:
+                - [Accounts receivable, { name: d1, answer: Debit, options: [Debit, Credit], style: "min-width:90px" }, { name: a1, answer: 850, prefix: "$", cls: mid }]
+                - [Repair revenue, { name: d2, answer: Credit, options: [Debit, Credit], style: "min-width:90px" }, { name: a2, answer: 850, prefix: "$", cls: mid }]
+        steps:
+          - { say: "The customers owe the shop: an asset goes up, so <strong>debit Accounts receivable $850</strong>.", fill: { d1: Debit, a1: 850 } }
+          - { say: "The work is done, so the revenue is earned now: <strong>credit Repair revenue $850</strong> <span class=\"star\">(*)</span>.", fill: { d2: Credit, a2: 850 } }
+      - name: "[AI#5] Statement effects"
+        label: generated
+        howto: entry
+        blocks:
+          - "<p>Record two transactions: the shop paid $1,200 rent in cash, and bought $900 of tools on account.</p>"
+          - fset:
+              prefix: s
+              columns: [Cash, Noncash assets, Liabilities, Equity, Revenue, Expenses, Net income]
+              accounts: [N/A, Cash, Tools, Accts Pay, Ret Earn, Rent Exp]
+              rows:
+                - label: Paid rent
+                  values: [-1200, 0, 0, -1200, 0, 1200, -1200]
+                  accounts: [Cash, N/A, N/A, Ret Earn, N/A, Rent Exp]
+                - label: Tools on account
+                  values: [0, 900, 900, 0, 0, 0, 0]
+                  accounts: [N/A, Tools, Accts Pay, N/A, N/A, N/A]
+        steps:
+          - say: Rent - cash down 1,200, equity down 1,200 through a 1,200 expense, net income down 1,200.
+            fill: { sr0c0: -1200, sr0a0: Cash, sr0c3: -1200, sr0a3: Ret Earn, sr0c5: 1200, sr0a5: Rent Exp, sr0c6: -1200 }
+          - say: Tools - an asset up 900 and a liability up 900. No income statement effect.
+            fill: { sr1c1: 900, sr1a1: Tools, sr1c2: 900, sr1a2: Accts Pay }
+
+  - id: Adjusting
+    caption: End-of-period adjustments
+    problems:
+      - name: "[AI#6] Straight-line depreciation"
+        label: generated
+        howto: depreciation
+        blocks:
+          - "<p>The shop bought a wheel-truing stand for $6,400. It should last 4 years and then sell for $400.</p>"
+          - answers:
+              rows:
+                - { label: Depreciation each year, name: dep, answer: 1500, prefix: "$" }
+                - { label: Book value after 2 years, name: bv, answer: 3400, prefix: "$" }
+        steps:
+          - { say: "Depreciable cost = 6,400 − 400 = 6,000; 6,000 ÷ 4 = <strong>$1,500</strong> a year <span class=\"star\">(*)</span>", fill: { dep: 1500 } }
+          - { say: "Two years = 3,000; 6,400 − 3,000 = <strong>$3,400</strong>", fill: { bv: 3400 } }
+        keys:
+          - { keys: [6000, "÷", 4, "="], meaning: "yearly depreciation (6,000 = 6,400 − 400)", value: 1500 }
+          - { keys: [6400, "−", 3000, "="], meaning: "book value after 2 years", value: 3400 }
+      - name: "[AI#7] TWIST: prepaid tune-ups"
+        label: generated
+        howto: entry
+        blocks:
+          - "<p>A customer paid $1,800 in advance for six monthly tune-ups. Two tune-ups are done by month end.</p>"
+          - answers:
+              rows:
+                - { label: Revenue earned so far, name: earned, answer: 600, prefix: "$" }
+                - { label: Unearned revenue left, name: left, answer: 1200, prefix: "$" }
+        steps:
+          - { say: "Each tune-up is 1,800 ÷ 6 = 300; two are done, so <strong>$600</strong> is earned.", fill: { earned: 600 } }
+          - { say: "The shop still owes four tune-ups: 1,800 − 600 = <strong>$1,200</strong> stays a liability.", fill: { left: 1200 } }
+        keys:
+          - { keys: [1800, "÷", 6, "×", 2, "="], meaning: "revenue earned", value: 600 }

@@ -1,0 +1,509 @@
+# The I-SUCCESS catalog: subjects, level bands, grades, skills and their practice problems.
+#
+# Every problem here is an original drill written for this project, labelled "generated" (the
+# study-wb rule: graded = an official key exists, calculated = worked out with no key,
+# generated = an invented drill). Numbers in `answer` are checked with `tol`; anything that is
+# not a number is compared as text, ignoring case and surrounding spaces.
+#
+# `cargo test -p i-success-content` checks this file: ids are unique, every reference
+# resolves, every answer box is filled by a step, and every step's value is accepted as the
+# answer.
+
+[[subject]]
+id = "math"
+name = "Math"
+ready = true
+
+[[subject]]
+id = "reading"
+name = "Reading and writing"
+ready = false
+
+[[subject]]
+id = "science"
+name = "Science"
+ready = false
+
+[[subject]]
+id = "engineering"
+name = "Engineering"
+ready = false
+
+# ---------------------------------------------------------------------------------------------
+# Level bands, in order. A band lists its grades; an empty band says what is not built yet.
+
+[[band]]
+id = "early"
+name = "Early years"
+range = "Pre-K and Kindergarten"
+grades = ["prek", "k"]
+
+[[band]]
+id = "elementary"
+name = "Elementary"
+range = "Grades 1 to 5"
+grades = ["g1", "g2", "g3", "g4", "g5"]
+
+[[band]]
+id = "middle"
+name = "Middle school"
+range = "Grades 6 to 8"
+grades = ["g6", "g7", "g8"]
+
+[[band]]
+id = "high"
+name = "High school"
+range = "Grades 9 to 12"
+grades = ["g9", "g10", "g11", "g12"]
+
+[[band]]
+id = "adult"
+name = "Adult learners"
+range = "Refreshers and equivalency"
+grades = []
+note = "Not built yet: refresher and equivalency courses for adults."
+
+[[band]]
+id = "university"
+name = "University"
+range = "Courses by programme"
+grades = []
+note = "Not built yet: university courses by programme, for example Mechanical Engineering."
+
+# ---------------------------------------------------------------------------------------------
+# Grades. `accent` colours the card's badge, title and border.
+
+[[grade]]
+id = "prek"
+badge = "P"
+name = "Pre-K"
+summary = "Counting small groups, comparing amounts and naming shapes."
+accent = "#10a0b6"
+
+[[grade]]
+id = "k"
+badge = "K"
+name = "Kindergarten"
+summary = "Putting together and taking away within 10, and counting to 20."
+accent = "#f39317"
+
+[[grade]]
+id = "g1"
+badge = "1"
+name = "Grade 1"
+summary = "Facts within 20 and place value up to 100."
+accent = "#42ae18"
+
+[[grade]]
+id = "g2"
+badge = "2"
+name = "Grade 2"
+summary = "Two-digit sums, hundreds, tens and ones, and counting coins."
+accent = "#d74726"
+
+[[grade]]
+id = "g3"
+badge = "3"
+name = "Grade 3"
+summary = "Times tables, sharing equally and the area of rectangles."
+accent = "#00a1de"
+
+[[grade]]
+id = "g4"
+badge = "4"
+name = "Grade 4"
+summary = "Larger products, equivalent fractions and decimals."
+accent = "#8d33aa"
+
+[[grade]]
+id = "g5"
+badge = "5"
+name = "Grade 5"
+summary = "Working with fractions, volume and the coordinate plane."
+accent = "#00b971"
+
+[[grade]]
+id = "g6"
+badge = "6"
+name = "Grade 6"
+summary = "Ratios, negative numbers and first equations."
+accent = "#e9681b"
+
+[[grade]]
+id = "g7"
+badge = "7"
+name = "Grade 7"
+summary = "Proportions, probability and solving equations."
+accent = "#0b863c"
+
+[[grade]]
+id = "g8"
+badge = "8"
+name = "Grade 8"
+summary = "Linear functions, exponents and right triangles."
+accent = "#10a0b6"
+
+[[grade]]
+id = "g9"
+badge = "9"
+name = "Grade 9"
+summary = "Algebra: equations, inequalities and functions."
+accent = "#f39317"
+
+[[grade]]
+id = "g10"
+badge = "10"
+name = "Grade 10"
+summary = "Geometry: proof, similarity and trigonometry."
+accent = "#42ae18"
+
+[[grade]]
+id = "g11"
+badge = "11"
+name = "Grade 11"
+summary = "Polynomials, logarithms and sequences."
+accent = "#d74726"
+
+[[grade]]
+id = "g12"
+badge = "12"
+name = "Grade 12"
+summary = "Precalculus and a first look at calculus."
+accent = "#00a1de"
+
+# ---------------------------------------------------------------------------------------------
+# Skills. Each has a code shown before its title, and its practice problems.
+
+# Pre-K ---------------------------------------------------------------------------------------
+
+[[skill]]
+id = "prek-count-5"
+subject = "math"
+grade = "prek"
+code = "A.1"
+title = "Count up to 5"
+
+[[skill.problem]]
+label = "generated"
+prompt = "How many dots?   • • •"
+answer = [{ name = "n", label = "Dots", answer = "3" }]
+step = [{ say = "Touch each dot as you count: 1, 2, 3. There are 3 dots.", fill = { n = "3" } }]
+
+[[skill.problem]]
+label = "generated"
+prompt = "How many dots?   • • • • •"
+answer = [{ name = "n", label = "Dots", answer = "5" }]
+step = [{ say = "Count them: 1, 2, 3, 4, 5. There are 5 dots.", fill = { n = "5" } }]
+
+[[skill]]
+id = "prek-more"
+subject = "math"
+grade = "prek"
+code = "A.2"
+title = "Which is more?"
+
+[[skill.problem]]
+label = "generated"
+prompt = "Which number is more: 4 or 2?"
+answer = [{ name = "more", label = "More", answer = "4" }]
+step = [{ say = "Counting goes 1, 2, 3, 4. You say 4 after 2, so 4 is more.", fill = { more = "4" } }]
+
+[[skill.problem]]
+label = "generated"
+prompt = "Which number is more: 3 or 5?"
+answer = [{ name = "more", label = "More", answer = "5" }]
+step = [{ say = "You say 5 after 3 when you count, so 5 is more.", fill = { more = "5" } }]
+
+[[skill]]
+id = "prek-shapes"
+subject = "math"
+grade = "prek"
+code = "A.3"
+title = "Sides of shapes"
+
+[[skill.problem]]
+label = "generated"
+prompt = "How many sides does a triangle have?"
+answer = [{ name = "sides", label = "Sides", answer = "3" }]
+step = [{ say = "Tri means three: a triangle has 3 sides.", fill = { sides = "3" } }]
+
+[[skill.problem]]
+label = "generated"
+prompt = "How many sides does a square have?"
+answer = [{ name = "sides", label = "Sides", answer = "4" }]
+step = [{ say = "Go round the square: top, right, bottom, left. That is 4 sides.", fill = { sides = "4" } }]
+
+# Kindergarten --------------------------------------------------------------------------------
+
+[[skill]]
+id = "k-add-5"
+subject = "math"
+grade = "k"
+code = "B.1"
+title = "Add within 5"
+
+[[skill.problem]]
+label = "generated"
+prompt = "2 + 3 = ?"
+answer = [{ name = "sum", label = "Sum", answer = "5" }]
+step = [{ say = "Start at 2 and count on 3 more: 3, 4, 5.", fill = { sum = "5" } }]
+
+[[skill.problem]]
+label = "generated"
+prompt = "3 + 1 = ?"
+answer = [{ name = "sum", label = "Sum", answer = "4" }]
+step = [{ say = "One more than 3 is 4.", fill = { sum = "4" } }]
+
+[[skill]]
+id = "k-sub-5"
+subject = "math"
+grade = "k"
+code = "B.2"
+title = "Take away within 5"
+
+[[skill.problem]]
+label = "generated"
+prompt = "5 − 2 = ?"
+answer = [{ name = "diff", label = "Answer", answer = "3" }]
+step = [{ say = "Start at 5 and count back 2: 4, 3.", fill = { diff = "3" } }]
+
+[[skill.problem]]
+label = "generated"
+prompt = "4 − 1 = ?"
+answer = [{ name = "diff", label = "Answer", answer = "3" }]
+step = [{ say = "One less than 4 is 3.", fill = { diff = "3" } }]
+
+[[skill]]
+id = "k-count-20"
+subject = "math"
+grade = "k"
+code = "B.3"
+title = "What comes next? (to 20)"
+
+[[skill.problem]]
+label = "generated"
+prompt = "What number comes after 13?"
+answer = [{ name = "next", label = "Next", answer = "14" }]
+step = [{ say = "Count on one: 13, 14.", fill = { next = "14" } }]
+
+[[skill.problem]]
+label = "generated"
+prompt = "What number comes after 19?"
+answer = [{ name = "next", label = "Next", answer = "20" }]
+step = [{ say = "After 19 the tens go up by one: 19, 20.", fill = { next = "20" } }]
+
+# Grade 1 -------------------------------------------------------------------------------------
+
+[[skill]]
+id = "g1-add-20"
+subject = "math"
+grade = "g1"
+code = "C.1"
+title = "Add within 20"
+
+[[skill.problem]]
+label = "generated"
+prompt = "8 + 7 = ?"
+answer = [{ name = "sum", label = "Sum", answer = "15" }]
+step = [
+  { say = "Make a ten: 8 + 2 = 10, and 2 came out of the 7, leaving 5.", fill = {} },
+  { say = "10 + 5 = 15.", fill = { sum = "15" } },
+]
+
+[[skill.problem]]
+label = "generated"
+prompt = "9 + 5 = ?"
+answer = [{ name = "sum", label = "Sum", answer = "14" }]
+step = [
+  { say = "Make a ten: 9 + 1 = 10, leaving 4 of the 5.", fill = {} },
+  { say = "10 + 4 = 14.", fill = { sum = "14" } },
+]
+
+[[skill]]
+id = "g1-tens-ones"
+subject = "math"
+grade = "g1"
+code = "C.2"
+title = "Tens and ones"
+
+[[skill.problem]]
+label = "generated"
+prompt = "Split 47 into tens and ones."
+answer = [
+  { name = "tens", label = "Tens", answer = "4" },
+  { name = "ones", label = "Ones", answer = "7" },
+]
+step = [
+  { say = "The left digit counts tens: 4 tens make 40.", fill = { tens = "4" } },
+  { say = "The right digit counts ones: 7 ones. 40 + 7 = 47.", fill = { ones = "7" } },
+]
+
+[[skill]]
+id = "g1-sub-20"
+subject = "math"
+grade = "g1"
+code = "C.3"
+title = "Subtract within 20"
+
+[[skill.problem]]
+label = "generated"
+prompt = "15 − 8 = ?"
+answer = [{ name = "diff", label = "Answer", answer = "7" }]
+step = [
+  { say = "Go back to 10 first: 15 − 5 = 10. That uses 5 of the 8, so 3 are left.", fill = {} },
+  { say = "10 − 3 = 7.", fill = { diff = "7" } },
+]
+
+# Grade 2 -------------------------------------------------------------------------------------
+
+[[skill]]
+id = "g2-add-2digit"
+subject = "math"
+grade = "g2"
+code = "D.1"
+title = "Add two-digit numbers"
+
+[[skill.problem]]
+label = "generated"
+prompt = "36 + 47 = ?"
+answer = [{ name = "sum", label = "Sum", answer = "83" }]
+step = [
+  { say = "Tens: 30 + 40 = 70. Ones: 6 + 7 = 13.", fill = {} },
+  { say = "70 + 13 = 83.", fill = { sum = "83" } },
+]
+
+[[skill.problem]]
+label = "generated"
+prompt = "58 + 26 = ?"
+answer = [{ name = "sum", label = "Sum", answer = "84" }]
+step = [
+  { say = "Tens: 50 + 20 = 70. Ones: 8 + 6 = 14.", fill = {} },
+  { say = "70 + 14 = 84.", fill = { sum = "84" } },
+]
+
+[[skill]]
+id = "g2-place-value"
+subject = "math"
+grade = "g2"
+code = "D.2"
+title = "Hundreds, tens and ones"
+
+[[skill.problem]]
+label = "generated"
+prompt = "Write the digits of 382."
+answer = [
+  { name = "h", label = "Hundreds", answer = "3" },
+  { name = "t", label = "Tens", answer = "8" },
+  { name = "o", label = "Ones", answer = "2" },
+]
+step = [{ say = "Read from the left: 3 hundreds, 8 tens, 2 ones. 300 + 80 + 2 = 382.", fill = { h = "3", t = "8", o = "2" } }]
+
+[[skill]]
+id = "g2-coins"
+subject = "math"
+grade = "g2"
+code = "D.3"
+title = "Count coins"
+
+[[skill.problem]]
+label = "generated"
+prompt = "How many cents are 3 quarters? (A quarter is 25 cents.)"
+answer = [{ name = "cents", label = "Cents", answer = "75", suffix = "cents" }]
+step = [{ say = "25 + 25 + 25 = 75 cents.", fill = { cents = "75" } }]
+
+# Grade 3 -------------------------------------------------------------------------------------
+
+[[skill]]
+id = "g3-multiply"
+subject = "math"
+grade = "g3"
+code = "E.1"
+title = "Multiplication facts"
+
+[[skill.problem]]
+label = "generated"
+prompt = "6 × 7 = ?"
+answer = [{ name = "p", label = "Product", answer = "42" }]
+step = [{ say = "6 × 7 is 6 groups of 7. 5 × 7 = 35, and one more 7 makes 42.", fill = { p = "42" } }]
+
+[[skill.problem]]
+label = "generated"
+prompt = "8 × 4 = ?"
+answer = [{ name = "p", label = "Product", answer = "32" }]
+step = [{ say = "Double 4 three times: 8, 16, 32. So 8 × 4 = 32.", fill = { p = "32" } }]
+
+[[skill]]
+id = "g3-divide"
+subject = "math"
+grade = "g3"
+code = "E.2"
+title = "Division facts"
+
+[[skill.problem]]
+label = "generated"
+prompt = "56 ÷ 8 = ?"
+answer = [{ name = "q", label = "Quotient", answer = "7" }]
+step = [{ say = "Which number times 8 makes 56? 7 × 8 = 56, so the answer is 7.", fill = { q = "7" } }]
+
+[[skill.problem]]
+label = "generated"
+prompt = "45 ÷ 5 = ?"
+answer = [{ name = "q", label = "Quotient", answer = "9" }]
+step = [{ say = "Count by fives to 45: that takes 9 fives.", fill = { q = "9" } }]
+
+[[skill]]
+id = "g3-area"
+subject = "math"
+grade = "g3"
+code = "E.3"
+title = "Area of rectangles"
+
+[[skill.problem]]
+label = "generated"
+prompt = "A rectangle is 6 units long and 4 units wide. What is its area?"
+answer = [{ name = "area", label = "Area", answer = "24", suffix = "square units" }]
+step = [{ say = "Area = length × width = 6 × 4 = 24 square units.", fill = { area = "24" } }]
+
+# Grade 4 -------------------------------------------------------------------------------------
+
+[[skill]]
+id = "g4-multiply-2digit"
+subject = "math"
+grade = "g4"
+code = "F.1"
+title = "Multiply by a one-digit number"
+
+[[skill.problem]]
+label = "generated"
+prompt = "34 × 6 = ?"
+answer = [{ name = "p", label = "Product", answer = "204" }]
+step = [
+  { say = "Split 34 into 30 + 4. 30 × 6 = 180 and 4 × 6 = 24.", fill = {} },
+  { say = "180 + 24 = 204.", fill = { p = "204" } },
+]
+
+[[skill]]
+id = "g4-equivalent-fractions"
+subject = "math"
+grade = "g4"
+code = "F.2"
+title = "Equivalent fractions"
+
+[[skill.problem]]
+label = "generated"
+prompt = "2/3 = ?/12. What is the missing number?"
+answer = [{ name = "num", label = "Numerator", answer = "8" }]
+step = [{ say = "3 × 4 = 12, so multiply the top by 4 as well: 2 × 4 = 8. 2/3 = 8/12.", fill = { num = "8" } }]
+
+[[skill]]
+id = "g4-decimals"
+subject = "math"
+grade = "g4"
+code = "F.3"
+title = "Add decimals"
+
+[[skill.problem]]
+label = "generated"
+prompt = "0.7 + 0.25 = ?"
+answer = [{ name = "sum", label = "Sum", answer = "0.95", tol = 0.0001 }]
+step = [{ say = "Line up the points: 0.70 + 0.25 = 0.95.", fill = { sum = "0.95" } }]

@@ -1,0 +1,18 @@
+[package]
+name = "i-success"
+description = "I-SUCCESS desktop app: adaptive practice for every grade"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+i-success-ui-egui = { workspace = true }
+eframe = { workspace = true }
+egui = { workspace = true }
+image = { workspace = true }

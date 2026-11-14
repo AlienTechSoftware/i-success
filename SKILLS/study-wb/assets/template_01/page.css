@@ -1,0 +1,15 @@
+/* page.css - template_01's theme layer, loaded after study-kit/study-kit.css.
+   study-kit.css already gives the full look. This file is where a page or a host changes it without touching the
+   runtime: override the design tokens below, or add rules. The workbench reads the same tokens, so the side pane
+   follows. A content file can add more stylesheets with page.css: [ ... ] (copied next to the page by the build). */
+
+:root {
+  --blue: #0668c9;        /* primary: header gradient end, buttons, card heads */
+  --blue-dark: #034c99;   /* header gradient start, active states, links */
+  --ink: #17202a;         /* body text */
+  --line: #d7e1eb;        /* borders */
+  --pale: #edf7ff;        /* key-note background */
+  --good: #138a45;        /* correct */
+  --bad: #b42318;         /* incorrect */
+  --amber: #fff7e7;       /* traps and calculated notes */
+}

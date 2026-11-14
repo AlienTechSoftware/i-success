@@ -1,0 +1,24 @@
+[package]
+name = "i-success-ui-egui"
+description = "I-SUCCESS egui front end: the brand bar, the home screen of subjects, level bands and grade cards, and the practice screen"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+i-success-model = { workspace = true }
+i-success-content = { workspace = true }
+i-success-engine = { workspace = true }
+egui = { workspace = true }
+egui_extras = { workspace = true }
+image = { workspace = true }
+
+[dev-dependencies]
+# `wgpu` renders the window offscreen for tests/screens.rs, which is ignored unless asked for.
+egui_kittest = { workspace = true, features = ["wgpu"] }

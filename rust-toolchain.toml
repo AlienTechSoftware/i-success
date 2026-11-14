@@ -1,0 +1,9 @@
+# One Rust for everybody: this machine, every agent session and the CI runner all use the
+# version named here, the same pin as the sibling Craft apps' NoteCraft.
+#
+# This is a pin, not a floor. The oldest Rust that can still build i-success is `rust-version`
+# in Cargo.toml. Raise the pin in a change of its own.
+[toolchain]
+channel = "1.99.1"
+components = ["clippy", "rustfmt"]
+profile = "minimal"

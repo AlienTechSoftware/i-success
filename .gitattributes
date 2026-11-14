@@ -1,0 +1,6 @@
+# Batch files need Windows line endings to run reliably.
+*.cmd text eol=crlf
+
+# Hooks and shell scripts run under sh, which needs Unix line endings.
+.githooks/* text eol=lf
+*.sh text eol=lf

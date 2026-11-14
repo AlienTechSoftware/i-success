@@ -1,0 +1,44 @@
+window.STUDY_DATA = {
+ "page": {
+  "title": "Minimal Study Page (example)",
+  "storageKey": "studywb-example-minimal"
+ },
+ "groups": [
+  {
+   "id": "Q1",
+   "problems": [
+    {
+     "name": "[AI#1] Add two numbers",
+     "label": "generated",
+     "body": "<p>What is 17 + 25?</p><p>{{box:sum}}</p>",
+     "fields": {
+      "sum": {
+       "answer": 42,
+       "cls": "mid"
+      }
+     },
+     "steps": [
+      {
+       "say": "17 + 25 = <strong>42</strong>",
+       "fill": {
+        "sum": 42
+       }
+      }
+     ],
+     "keys": [
+      {
+       "keys": [
+        17,
+        "+",
+        25,
+        "="
+       ],
+       "meaning": "sum",
+       "value": 42
+      }
+     ]
+    }
+   ]
+  }
+ ]
+};

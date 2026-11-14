@@ -1,0 +1,142 @@
+# Starter content file for template_01. Copy it next to where the page should live, rename it, edit it.
+# Everything here is invented and only shows the format; replace all of it with content transcribed from your sources.
+#
+#   build:     python <skill>/scripts/build_study_aid.py my-page.yaml
+#   validate:  python <skill>/scripts/validate_study_data.py my-page.yaml
+#   verify:    python <skill>/scripts/verify_page.py my-page.html
+#
+# Contract: <skill>/references/data_schema.md   Widgets: <skill>/references/widgets.md
+#
+# YAML traps: quote any text that contains ": " (colon space) or "#", and any text inside { } or [ ] that
+# contains a comma, such as "1,000". Use | for multi-line HTML.
+
+build:
+  name: my-page                # output: my-page.html + my-page.data.js next to this file
+  template: template_01
+
+page:
+  title: Sample Study Page     # required
+  storageKey: sample-course-unit1   # required, unique per page: browser notes and settings are saved under it
+  heading: Sample Study Page (Unit 1)
+  subtitle: Unit 1 · Topics A and B · date and points go here, each with its source
+
+timer:                         # leave out to have no timer bar
+  minutes: 60
+  multiplier: 1
+  note: State where the time limit comes from.
+
+workbench:                     # optional: which side-pane tools exist and which start shown
+  tools: [calculator, notepad, stickies]
+
+reference:
+  - title: Exam facts and rules
+    html: <p>Date, scope, allowed tools. Name the source of each fact.</p>
+  - title: Foundation
+    children:
+      - title: Topic A
+        html: <p>The idea behind topic A in two or three sentences.</p>
+
+howto:
+  avg:
+    title: Topic A Q1 — Average cost
+    html: |
+      <h3>What this is about</h3><p>Average cost per unit = fixed ÷ units + variable rate.</p>
+      <p class="memory"><strong>Say it out loud:</strong> "Fixed over units, plus the rate."</p>
+  sort:
+    title: Topic A Q2 — Sort the costs
+    html: "<p>Double the volume in your head: doubles is variable, stays is fixed.</p>"
+  hello:
+    title: Hello world
+    html: "<p>Hello, world. Use the read-aloud group next to this heading to hear it.</p>"
+
+groups:
+  - id: Hello world
+    caption: Hello world · a minimal page to try every feature
+    problems:
+      - name: Hello-Q1 Add two numbers (generated)
+        label: generated
+        howto: hello
+        blocks:
+          - <p><strong>Hello, world</strong></p><p>Type the sum of 1 and 1.</p>
+          - answers:
+              rows:
+                - { label: "1 + 1", name: sum, answer: 2 }
+        steps:
+          - say: 1 + 1 = <strong>2</strong>
+            fill: { sum: 2 }
+        keys:
+          - { keys: [1, "+", 1, "="], meaning: "the sum", value: 2 }
+
+  - id: Set 1
+    caption: Set 1 · Topic A · two problem types
+    problems:
+      - name: Set1-Q1 Average cost (graded)
+        label: generated           # graded | calculated | generated (graded and calculated need a source file)
+        howto: avg
+        blocks:
+          - <p><strong>Average Unit Cost</strong></p><p>Monthly cost is $5,000 + $0.50X, X = units.</p>
+          - answers:
+              rows:
+                - { label: "Average cost at 1,000 units", name: a1, answer: 5.5, tol: 0.05, prefix: $ }
+                - { label: "Average cost at 10,000 units", name: a2, answer: 1.0, tol: 0.05, prefix: $ }
+        steps:
+          - say: 5,000 ÷ 1,000 + 0.50 = <strong>$5.50</strong>
+            fill: { a1: 5.5 }
+          - say: 5,000 ÷ 10,000 + 0.50 = <strong>$1.00</strong>
+            fill: { a2: 1.0 }
+        keys:
+          - { keys: [5000, "÷", 1000, "+", 0.5, "="], meaning: "average at 1,000", value: 5.5 }
+          - { keys: [5000, "÷", 10000, "+", 0.5, "="], meaning: "average at 10,000", value: 1 }
+
+      - name: Set1-Q2 Sort the costs (calculated)
+        label: generated
+        howto: sort
+        blocks:
+          - <p>Classify each cost. Volume is the driver.</p>
+          - classify:
+              options: [Variable, Fixed]
+              autoSteps: true            # one step per option, from the third item element
+              items:
+                - [Raw materials, Variable, more units need more material]
+                - [Factory rent, Fixed, the same at any volume]
+        steps: auto
+
+      - name: "[AI#1] Choose the formula"
+        label: generated
+        blocks:
+          - choice:
+              name: pick1
+              question: Which gives the average cost per unit?
+              options: [Fixed × units, Fixed ÷ units + rate, Rate ÷ units]
+              answer: B
+          - table:
+              head: [Item, Amount]
+              rows:
+                - [Fixed cost, "$5,000"]
+                - [Units for an average of $0.75, { name: units, answer: 20000, cls: mid }]
+        steps:
+          - say: Average = fixed ÷ units + rate → <strong>B</strong>.
+            fill: { pick1: B }
+          - say: 5,000 ÷ (0.75 − 0.50) = <strong>20,000</strong> units.
+            fill: { units: 20000 }
+
+      - name: "[AI#2] Effects template"
+        label: generated
+        blocks:
+          - "<p>Record a $100 cash sale (cost of the goods sold: $60).</p>"
+          - fset:
+              prefix: s
+              columns: [Cash, Noncash assets, Liabilities, Equity, Revenue, Expenses, Net income]
+              accounts: [N/A, Cash, Inventory, Ret Earn, Sales, COGS]
+              rows:
+                - label: Sale
+                  values: [100, 0, 0, 100, 100, 0, 100]
+                  accounts: [Cash, N/A, N/A, Ret Earn, Sales, N/A]
+                - label: Cost of goods sold
+                  values: [0, -60, 0, -60, 0, 60, -60]
+                  accounts: [N/A, Inventory, N/A, Ret Earn, N/A, COGS]
+        steps:
+          - say: Sale - cash up 100, equity up 100, revenue 100.
+            fill: { sr0c0: 100, sr0a0: Cash, sr0c3: 100, sr0a3: Ret Earn, sr0c4: 100, sr0a4: Sales, sr0c6: 100 }
+          - say: Cost of goods sold - inventory down 60, equity down 60, expense 60.
+            fill: { sr1c1: -60, sr1a1: Inventory, sr1c3: -60, sr1a3: Ret Earn, sr1c5: 60, sr1a5: COGS, sr1c6: -60 }

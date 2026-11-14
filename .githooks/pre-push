@@ -1,0 +1,6 @@
+#!/bin/sh
+# The full gate before every push: fmt, clippy with warnings denied, every test, names.
+# A push that fails here would fail CI too. Fix the cause; do not skip the hook.
+set -e
+echo "pre-push: cargo xtask ci"
+cargo xtask ci

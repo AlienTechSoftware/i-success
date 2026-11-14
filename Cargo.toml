@@ -1,0 +1,47 @@
+[workspace]
+resolver = "3"
+members = ["crates/*", "apps/*", "xtask"]
+default-members = ["crates/*", "apps/i-success", "xtask"]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/AlienTechSoftware/i-success"
+publish = false
+
+[workspace.dependencies]
+i-success-model = { path = "crates/model" }
+i-success-content = { path = "crates/content" }
+i-success-engine = { path = "crates/engine" }
+i-success-ui-egui = { path = "crates/ui-egui" }
+
+# Versions match the sibling Craft apps (NoteCraft, WordCraft).
+eframe = "0.37"
+egui = { version = "0.37", features = ["default_fonts"] }
+egui_extras = { version = "0.37", default-features = false, features = ["image"] }
+egui_kittest = "0.37"
+image = { version = "0.25", default-features = false, features = ["png"] }
+serde = { version = "1", features = ["derive"] }
+toml = "1.1"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "deny"
+unimplemented = "deny"
+unreachable = "deny"
+dbg_macro = "warn"
+
+[profile.dev.package."*"]
+opt-level = 2
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 16

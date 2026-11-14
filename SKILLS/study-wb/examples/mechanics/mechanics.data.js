@@ -1,0 +1,283 @@
+window.STUDY_DATA = {
+ "page": {
+  "title": "Mechanics Study Page (example)",
+  "storageKey": "studywb-example-mechanics",
+  "heading": "Mechanics - Motion, Force and Energy",
+  "subtitle": "Invented example content · g = 9.81 m/s²",
+  "css": [
+   "mechanics.css"
+  ]
+ },
+ "reference": [
+  {
+   "title": "Equations",
+   "html": "<p>v = v₀ + a t · d = v₀ t + ½ a t² · F = m a · W = m g · PE = m g h · KE = ½ m v² · from rest, v = √(2 g h)</p>"
+  }
+ ],
+ "howto": {
+  "kin": {
+   "title": "Constant acceleration",
+   "html": "<ol><li>From rest: v = a × t <span class=\"star\">(*)</span>.</li><li>d = ½ × a × t².</li></ol><div class=\"surprise\"><strong>Trap:</strong> square the time, not the acceleration.</div>"
+  },
+  "force": {
+   "title": "Force and weight",
+   "html": "<ol><li>Net force F = m × a.</li><li>Weight W = m × g, with g = 9.81 m/s².</li></ol>"
+  },
+  "energy": {
+   "title": "Potential to kinetic energy",
+   "html": "<ol><li>PE = m × g × h.</li><li>All of it becomes KE at the bottom: ½ m v² = m g h, so v = √(2 g h). The mass cancels.</li></ol><p class=\"memory\"><strong>Say it out loud:</strong> \"Height sets the speed; mass does not.\"</p>"
+  },
+  "vectors": {
+   "title": "Vector or scalar",
+   "html": "<p>A vector has a direction (velocity, force, acceleration, displacement). A scalar does not (speed, mass, energy, time).</p>"
+  }
+ },
+ "groups": [
+  {
+   "id": "Motion",
+   "caption": "Kinematics and forces",
+   "problems": [
+    {
+     "name": "Problem set 1 Q1 Accelerating cart (no key)",
+     "label": "calculated",
+     "files": [
+      "sources/problem_set_1.html"
+     ],
+     "howto": "kin",
+     "steps": [
+      {
+       "say": "v = 2.5 × 8 = <strong>20 m/s</strong>",
+       "fill": {
+        "v": 20
+       }
+      },
+      {
+       "say": "d = 0.5 × 2.5 × 8² = <strong>80 m</strong>",
+       "fill": {
+        "d": 80
+       }
+      }
+     ],
+     "keys": [
+      {
+       "keys": [
+        2.5,
+        "×",
+        8,
+        "="
+       ],
+       "meaning": "speed",
+       "value": 20
+      },
+      {
+       "keys": [
+        8,
+        "×",
+        8,
+        "×",
+        2.5,
+        "÷",
+        2,
+        "="
+       ],
+       "meaning": "distance",
+       "value": 80
+      }
+     ],
+     "body": "<p>From rest, a = 2.5 m/s² for t = 8 s.</p>\n<table class=\"answers\"><tbody><tr><td>Final speed</td><td>{{box:v}} m/s</td></tr><tr><td>Distance</td><td>{{box:d}} m</td></tr></tbody></table>",
+     "fields": {
+      "v": {
+       "answer": 20,
+       "tol": 0.05,
+       "cls": "mid"
+      },
+      "d": {
+       "answer": 80,
+       "tol": 0.5,
+       "cls": "mid"
+      }
+     }
+    },
+    {
+     "name": "Problem set 1 Q2 Car force and weight (no key)",
+     "label": "calculated",
+     "files": [
+      "sources/problem_set_1.html"
+     ],
+     "howto": "force",
+     "steps": [
+      {
+       "say": "F = 1,200 × 3 = <strong>3,600 N</strong>",
+       "fill": {
+        "f": 3600
+       }
+      },
+      {
+       "say": "W = 1,200 × 9.81 = <strong>11,772 N</strong>",
+       "fill": {
+        "w": 11772
+       }
+      }
+     ],
+     "body": "<p>m = 1,200 kg, a = 3 m/s².</p>\n<table class=\"answers\"><tbody><tr><td>Net force</td><td>{{box:f}} N</td></tr><tr><td>Weight</td><td>{{box:w}} N</td></tr></tbody></table>",
+     "fields": {
+      "f": {
+       "answer": 3600,
+       "tol": 0.5,
+       "cls": "mid"
+      },
+      "w": {
+       "answer": 11772,
+       "tol": 0.5,
+       "cls": "mid"
+      }
+     }
+    },
+    {
+     "name": "[AI#1] TWIST: braking is negative acceleration",
+     "label": "generated",
+     "howto": "force",
+     "steps": [
+      {
+       "say": "a = 25 ÷ 5 = <strong>5 m/s²</strong> (negative: slowing).",
+       "fill": {
+        "a": 5
+       }
+      },
+      {
+       "say": "Average speed 12.5 m/s × 5 s = <strong>62.5 m</strong>.",
+       "fill": {
+        "d": 62.5
+       }
+      },
+      {
+       "say": "F = 1,500 × 5 = <strong>7,500 N</strong>.",
+       "fill": {
+        "f": 7500
+       }
+      }
+     ],
+     "body": "<p>A 1,500 kg car slows from 25 m/s to rest in 5 s. Give sizes (no signs).</p>\n<table class=\"answers\"><tbody><tr><td>Deceleration</td><td>{{box:a}} m/s²</td></tr><tr><td>Stopping distance</td><td>{{box:d}} m</td></tr><tr><td>Braking force</td><td>{{box:f}} N</td></tr></tbody></table>",
+     "fields": {
+      "a": {
+       "answer": 5,
+       "tol": 0.01,
+       "cls": "mid"
+      },
+      "d": {
+       "answer": 62.5,
+       "tol": 0.05,
+       "cls": "mid"
+      },
+      "f": {
+       "answer": 7500,
+       "tol": 0.5,
+       "cls": "mid"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "Energy",
+   "caption": "Energy and quantities",
+   "problems": [
+    {
+     "name": "Problem set 1 Q3 Dropped ball (no key)",
+     "label": "calculated",
+     "files": [
+      "sources/problem_set_1.html"
+     ],
+     "howto": "energy",
+     "steps": [
+      {
+       "say": "PE = 2 × 9.81 × 15 = <strong>294.3 J</strong>",
+       "fill": {
+        "pe": 294.3
+       }
+      },
+      {
+       "say": "v = √(2 × 9.81 × 15) = √294.3 = <strong>17.16 m/s</strong> (use the Scientific mode's √).",
+       "fill": {
+        "v": 17.16
+       }
+      }
+     ],
+     "body": "<p>m = 2 kg, h = 15 m, dropped from rest.</p>\n<table class=\"answers\"><tbody><tr><td>Potential energy</td><td>{{box:pe}} J</td></tr><tr><td>Speed before landing</td><td>{{box:v}} m/s</td></tr></tbody></table>",
+     "fields": {
+      "pe": {
+       "answer": 294.3,
+       "tol": 0.05,
+       "cls": "mid"
+      },
+      "v": {
+       "answer": 17.16,
+       "tol": 0.01,
+       "cls": "mid"
+      }
+     }
+    },
+    {
+     "name": "[AI#2] Vector or scalar",
+     "label": "generated",
+     "howto": "vectors",
+     "steps": [
+      {
+       "say": "<strong>Vector:</strong><br>(a) Velocity: has a direction.<br>(c) Force: has a direction.<br>(e) Displacement: has a direction.",
+       "fill": {
+        "c0": "Vector",
+        "c2": "Vector",
+        "c4": "Vector"
+       }
+      },
+      {
+       "say": "<strong>Scalar:</strong><br>(b) Mass: no direction.<br>(d) Kinetic energy: no direction.",
+       "fill": {
+        "c1": "Scalar",
+        "c3": "Scalar"
+       }
+      }
+     ],
+     "body": "<table class=\"given\"><tbody><tr><td>(a)</td><td>Velocity</td><td>{{pick:c0}}</td></tr><tr><td>(b)</td><td>Mass</td><td>{{pick:c1}}</td></tr><tr><td>(c)</td><td>Force</td><td>{{pick:c2}}</td></tr><tr><td>(d)</td><td>Kinetic energy</td><td>{{pick:c3}}</td></tr><tr><td>(e)</td><td>Displacement</td><td>{{pick:c4}}</td></tr></tbody></table>",
+     "fields": {
+      "c0": {
+       "answer": "Vector",
+       "options": [
+        "Vector",
+        "Scalar"
+       ]
+      },
+      "c1": {
+       "answer": "Scalar",
+       "options": [
+        "Vector",
+        "Scalar"
+       ]
+      },
+      "c2": {
+       "answer": "Vector",
+       "options": [
+        "Vector",
+        "Scalar"
+       ]
+      },
+      "c3": {
+       "answer": "Scalar",
+       "options": [
+        "Vector",
+        "Scalar"
+       ]
+      },
+      "c4": {
+       "answer": "Vector",
+       "options": [
+        "Vector",
+        "Scalar"
+       ]
+      }
+     }
+    }
+   ]
+  }
+ ]
+};
